@@ -24,23 +24,22 @@ const AddProduct = () => {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
 
-  const addPost = () => {
+  const addPost = async() => {
     const formData = new FormData();
     formData.append("file", file);
     formData.append("description", description);
     formData.append("category", category);
     formData.append("title", title);
     formData.append("price", price);
-    axios({
-      method: "post",
-      url: addproduct__url,
-      data: formData,
-    }).then((resp) => {
-      console.log(resp);
-    });
-    navigate("/").catch((err) => {
-      console.log("Something went wrong", err);
-    });
+
+     try {
+      await axios.post(addproduct__url, formData);
+      alert('Product added successfully');
+    } catch (error) {
+      console.error(error);
+      alert('Failed to add product');
+    }
+
   };
 
   const handleSubmit = (e) => {
