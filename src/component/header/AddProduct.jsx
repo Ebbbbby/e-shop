@@ -3,10 +3,11 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { InputGroup, Row, Button } from "react-bootstrap";
+import {  Row} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
-import { v4 as uuidv4 } from "uuid";
+import { useForm } from "react-hook-form";
+
 const addproduct__url = "https://fakestoreapi.com/products";
 const options = [
   "Electronics",
@@ -18,40 +19,62 @@ const options = [
 const AddProduct = () => {
   const navigate = useNavigate();
 
-  const [file, setFile] = useState("");
+   const {
+     register,
+     handleSubmit,
+     formState: { errors },
+   } = useForm();
+
+   const onSubmit = (e) => {
+     e.preventDefault();
+
+   };
+
+   const [file, setFile] = useState("");
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
 
+
   const addPost = async() => {
+    if(title ===''||category===''|| file===''|| price===''||description===''){
+      return;
+    }
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("description", description);
-    formData.append("category", category);
-    formData.append("title", title);
-    formData.append("price", price);
+    formData.append("description", title);
+    formData.append("category", price);
+    formData.append("title",description);
+    formData.append("price",category);
+   const config = {
+     headers: { "content-type": "multipart/form-data" },
+   };
+try {
+ await axios
+   .post(addproduct__url, formData, config)
+   .then((response) => {
+     console.log(response.data);
+   })
 
-     try {
-      await axios.post(addproduct__url, formData);
-      alert('Product added successfully');
-    } catch (error) {
-      console.error(error);
-      alert('Failed to add product');
-    }
+} catch (error) {
+     console.error(error);
+     alert("Failed to add product");
+   };
+
+
+
 
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+
 
   return (
     <>
       <form
         className="container mb-3"
         style={{ marginTop: "7rem" }}
-        onSubmit={handleSubmit}
+        onSubmit={onSubmit}
       >
         <Row className="mb-3">
           <Form.Group controlId="formBasicEmail" className="col col-sm-6">
@@ -64,6 +87,8 @@ const AddProduct = () => {
               className="form-control"
             />
           </Form.Group>
+          {errors.title && <p>Please check the title</p>}
+
           <Form.Group controlId="" className="col col-sm-6">
             <Form.Label>Price</Form.Label>
             <Form.Control
@@ -74,6 +99,7 @@ const AddProduct = () => {
               className="form-control"
             />
           </Form.Group>
+          {errors.title && <p>Please check the price</p>}
         </Row>
 
         <Row className="mb-3">
@@ -89,6 +115,7 @@ const AddProduct = () => {
               </option>
             ))}
           </Form.Select>
+          {errors.title && <p>Please check the category</p>}
 
           <Form.Group controlId="formFile" className="col col-sm-6">
             <Form.Label>Choose Image</Form.Label>
@@ -102,7 +129,7 @@ const AddProduct = () => {
 
         <Row className="mb-3">
           <Form.Group controlId="" className="col col-sm-6">
-            <Form.Label>description</Form.Label>
+            <Form.Label>Description</Form.Label>
             <Form.Control
               as="textarea"
               rows="{3}"
@@ -112,6 +139,7 @@ const AddProduct = () => {
               onChange={(e) => setDescription(e.target.value)}
             />
           </Form.Group>
+          {errors.title && <p>Please add description</p>}
         </Row>
         <Row className="mb-3">
           <Form.Group className="col col-sm-6">

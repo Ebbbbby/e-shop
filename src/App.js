@@ -5,16 +5,18 @@ import ProductCategory from "./component/products/ProductCategory";
 import ProductDetail from "./component/products/ProductDetail";
 import Navheader from "./component/header/Navheader";
 import AddProduct from "./component/header/AddProduct";
-function App() {
+ function App() {
   return (
     <div className="App">
       <Navheader />
+
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="signin" element={<Signin />} />
         <Route path="products/:cartItem" element={<ProductCategory />} />
         <Route path="/productdetails/:id" element={<ProductDetail />} />
-        <Route path="/addItem" element={<AddProduct/>}/>
+        <Route path="/addItem" element={<AddProduct />} />
       </Routes>
     </div>
   );
