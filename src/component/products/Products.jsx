@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import {Col, Row} from 'react-bootstrap'
 import Product from "./Product";
+import CustomPagination from "../Pagination/CustomPagination";
 
 const product_url ='https://fakestoreapi.com/products'
 const Products = () => {
@@ -35,6 +36,7 @@ return (
             <Product product={product} />
           </Col>
         ))}
+        <CustomPagination/>
     </div>
   </>
 );

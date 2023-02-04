@@ -27,7 +27,7 @@ const ProductDetail = () => {
   useEffect(() => {
     getProductsDetails();
   }, []);
-  const {title, price, description, category,image} = productDetails;
+  const { title, price, description, category,image} = productDetails;
 //   console.log(productDetails)
   return (
     <>
@@ -38,7 +38,7 @@ const ProductDetail = () => {
               style={{ width: 370, height: 350 }}
               variant="top"
               src={image}
-              className="card__images"
+              className="card__images" alt="title"
             />
           </div>
           <div className="details__text">
@@ -64,12 +64,17 @@ const ProductDetail = () => {
             <div className="mt-4 d-flex justify-content-between">
               <Button className="add__cart p-2">Add to Cart</Button>
               <Button className="add__cart p-2">
-                <Link to="/" style={{color:'#fff', textDecoration: 'none'}}> Go back</Link>
+                <Link to="/" style={{ color: "#fff", textDecoration: "none" }}>
+                  {" "}
+                  Go back
+                </Link>
               </Button>
             </div>
           </div>
         </div>
       </Container>
+
+
     </>
   );
 };

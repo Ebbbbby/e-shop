@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {  Row} from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Row } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import { useForm } from "react-hook-form";
 
@@ -19,63 +19,57 @@ const options = [
 const AddProduct = () => {
   const navigate = useNavigate();
 
-   const {
-     register,
-     handleSubmit,
-     formState: { errors },
-   } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-   const onSubmit = (e) => {
-     e.preventDefault();
-
-   };
-
-   const [file, setFile] = useState("");
+  const [file, setFile] = useState("");
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
 
-
-  const addPost = async() => {
-    if(title ===''||category===''|| file===''|| price===''||description===''){
+  const addPost = async () => {
+    if (
+      title === "" ||
+      category === "" ||
+      file === "" ||
+      price === "" ||
+      description === ""
+    ) {
       return;
     }
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("description", title);
-    formData.append("category", price);
-    formData.append("title",description);
-    formData.append("price",category);
-   const config = {
-     headers: { "content-type": "multipart/form-data" },
-   };
-try {
- await axios
-   .post(addproduct__url, formData, config)
-   .then((response) => {
-     console.log(response.data);
-   })
+    formData.append("title", title);
+    formData.append("price", price);
+    formData.append("description", description);
+    formData.append("category", category);
+    try {
+      await axios({
+        method: "post",
+        url: addproduct__url,
+        data: formData,
+        headers: {
+          headers: { "Content-Type": "multipart/form-data" },
+        },
+      }).then(function (response) {
+        console.log(response);
+        alert(response);
+      });
+    } catch (error) {
+      console.error(error);
+      alert("Failed to add product");
+    }
 
-} catch (error) {
-     console.error(error);
-     alert("Failed to add product");
-   };
-
-
-
-
+    navigate("/");
   };
-
-
 
   return (
     <>
-      <form
-        className="container mb-3"
-        style={{ marginTop: "7rem" }}
-        onSubmit={onSubmit}
-      >
+      <div className="container mb-3" style={{ marginTop: "7rem" }}>
         <Row className="mb-3">
           <Form.Group controlId="formBasicEmail" className="col col-sm-6">
             <Form.Label>Title</Form.Label>
@@ -154,11 +148,11 @@ try {
               type="reset"
               className="me-4 btn btn-danger btn-lg btn-block"
             >
-              Cancel
+              <Link to = '/'> Home</Link>
             </button>
           </Form.Group>
         </Row>
-      </form>
+      </div>
     </>
   );
 };

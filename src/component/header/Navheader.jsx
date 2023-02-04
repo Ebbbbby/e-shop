@@ -17,6 +17,7 @@ import { Badge } from "react-bootstrap";
 
 const Navheader = () => {
   const [search, setSearch] = useState("");
+  const [account, setAccount] = useState()
   return (
     <Navbar className="nav__bg">
       <Container className="d-flex justify-content-between w-100" style={{}}>
