@@ -1,19 +1,39 @@
 import * as React from "react";
-import Typography from "@mui/material/Typography";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
+import Button from "react-bootstrap/Button";
 
- function CustomPagination({page, setPage}) {
-  const handleChange = (event, value) => {
-    setPage(value);
-  };
 
-  return (
 
-    <Stack spacing={2}>
-      <Typography>Page: {page}</Typography>
-      <Pagination count={10} page={page} onChange={handleChange} />
-    </Stack>
-  );
-}
+ function CustomPagination({ postPerPage, totalPost,paginate, prevPage, nextPage, currentPage}) {
+  const pageNumber =[];
+  for (let i = 1; i <= Math.ceil(totalPost/postPerPage); i++) {
+     pageNumber.push(i)
+
+  }
+
+
+   return (
+     <nav>
+       <ul className="pagination justify-content-center">
+      
+           <li>
+             <Button onClick={() => prevPage()}>Prev</Button>
+           </li>
+
+         {pageNumber.map((number) => (
+           <li key={number} className="page-item">
+             <a onClick={() => paginate(number)} className="page-link">
+               {number}
+             </a>
+           </li>
+         ))}
+
+         {pageNumber.length !== currentPage && (
+           <li>
+             <Button onClick={() => nextPage()}>Next</Button>
+           </li>
+         )}
+       </ul>
+     </nav>
+   );
+ }
 export default CustomPagination;

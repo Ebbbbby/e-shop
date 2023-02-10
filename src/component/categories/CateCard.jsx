@@ -5,7 +5,7 @@ const CateCard = ({ cateItem }) => {
   return (
     <ul style={{ width: "18rem" , marginTop:'1rem'}} className=" category__item">
       <li key={cateItem.id}>
-        <Link to={`products/${cateItem}`} className = "item">{cateItem}</Link>
+        <Link to={`products/${cateItem}`} className = "item" style={{border:'1px solid red'}}>{cateItem}</Link>
       </li>
     </ul>
   );
