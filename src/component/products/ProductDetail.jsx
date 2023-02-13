@@ -1,9 +1,8 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { Button, Container} from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import Spinner from "react-bootstrap/Spinner";
-
 
 const ProductDetail = () => {
   const base_url = "https://fakestoreapi.com";
@@ -15,7 +14,7 @@ const ProductDetail = () => {
 
   const getProductsDetails = async () => {
     try {
-        setLoading(true)
+      setLoading(true);
       const endpoint = `${base_url}/products/${id}`;
       const response = await axios.get(endpoint);
       setProductDetails(response.data);
@@ -27,8 +26,8 @@ const ProductDetail = () => {
   useEffect(() => {
     getProductsDetails();
   }, []);
-  const { title, price, description, category,image} = productDetails;
-//   console.log(productDetails)
+  const { title, price, description, category, image } = productDetails;
+  //   console.log(productDetails)
   return (
     <>
       <Container className="details__container py-4">
@@ -38,7 +37,8 @@ const ProductDetail = () => {
               style={{ width: 370, height: 350 }}
               variant="top"
               src={image}
-              className="card__images" alt="title"
+              className="card__images"
+              alt="title"
             />
           </div>
           <div className="details__text">
@@ -73,8 +73,6 @@ const ProductDetail = () => {
           </div>
         </div>
       </Container>
-
-
     </>
   );
 };
