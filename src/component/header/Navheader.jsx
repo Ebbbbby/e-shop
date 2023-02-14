@@ -14,12 +14,17 @@ import { FaRegHeart } from "react-icons/fa";
 import { FaSave } from "react-icons/fa";
 import {Link} from 'react-router-dom'
 import { Badge, Modal } from "react-bootstrap";
+import { useContext } from "react";
+import { CartContext } from "../../context/Context";
 
 const Navheader = () => {
   const [search, setSearch] = useState("");
   const [show, setShow] = useState(false);
   const handleClose = ()=> setShow(false)
   const handleShow = () => setShow(true);
+  const GlobalState = useContext(CartContext)
+  const state = GlobalState.state;
+  const dispatch = GlobalState.dispatch;
   return (
     <>
     <Navbar className="nav__bg" expand="sm">
@@ -103,7 +108,18 @@ const Navheader = () => {
      <Modal.Header closeButton>
       <Modal.Title>Shopping Cart</Modal.Title>
       <Modal.Body>
-        <h1>This is the Modal Body</h1>
+       {state.map((item,idx)=>{
+
+        return (<div className="modal" style={{}}>
+          <div className="card" key={idx}>
+            <img src={item.image} alt={item.title} />
+            <p>{item.title}</p>
+         
+          </div>
+        </div>
+        )
+
+       })}
       </Modal.Body>
 
      </Modal.Header>

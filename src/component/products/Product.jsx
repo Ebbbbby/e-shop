@@ -4,11 +4,21 @@ import { Link } from 'react-router-dom'
 import './product.css'
 import Button from 'react-bootstrap/Button'
 import '../Pagination/pagination.css'
+import { useContext } from 'react'
+import { CartContext } from '../../context/Context'
+
+
 
 const Product = ({product, loading}) => {
+
+   const GlobalState = useContext(CartContext);
+   const dispatch = GlobalState.dispatch
+   console.log(GlobalState);
   if(loading){
     return <h2>Loading...</h2>
   }
+
+
   return (
     <>
       <div
@@ -19,9 +29,10 @@ const Product = ({product, loading}) => {
           justifyContent: "space-around",
         }}
       >
-        {product.map(({ id, title, price, image }) => (
+        {product.map((item) => (
+          
           <div
-            key={id}
+            key={item.id}
             style={{
               display: "flex",
               justifyContent: "center",
@@ -41,26 +52,26 @@ const Product = ({product, loading}) => {
                   margin: "2rem auto",
                 }}
               >
-                <Link to={`/productdetails/${id}`} className="product__link">
+                <Link to={`/productdetails/${item.id}`} className="product__link">
                   <Card.Img
                     style={{
                       width: 250,
                       height: 250,
                     }}
                     variant="top"
-                    src={image}
+                    src={item.image}
                     className="card__images"
                   />
 
-                  <Card.Body key={id}>
-                    <Card.Text className="title">{title}</Card.Text>
+                  <Card.Body key={item.id}>
+                    <Card.Text className="title">{item.title}</Card.Text>
 
-                    <Card.Title> ${price}</Card.Title>
+                    <Card.Title> ${item.price}</Card.Title>
                   </Card.Body>
                 </Link>
                 <div className="buttons">
-                  <Button className="add__cart">Add to Cart</Button>
-             
+                  <Button className="add__cart" onClick={()=> dispatch({type:'ADD', payload:item})}>Add to Cart</Button>
+
                 </div>
               </Card>
             </Container>

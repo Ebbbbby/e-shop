@@ -4,6 +4,7 @@ import axios from "axios";
 import { Col} from "react-bootstrap";
 import Product from "./Product";
 import CustomPagination from "../Pagination/CustomPagination";
+
 const product_url = "https://fakestoreapi.com/products";
 
 const Products = () => {
@@ -16,6 +17,7 @@ const Products = () => {
   useEffect(() => {
     getProducts();
   }, []);
+
 
   const getProducts = async () => {
     try {
