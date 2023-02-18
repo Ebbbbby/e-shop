@@ -3,11 +3,15 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Button, Container } from "react-bootstrap";
 import Spinner from "react-bootstrap/Spinner";
+import { useContext } from "react";
+import { CartContext } from "../../context/Context";
+
 
 const ProductDetail = () => {
+    const GlobalState = useContext(CartContext);
+    const dispatch = GlobalState.dispatch;
   const base_url = "https://fakestoreapi.com";
   const { id } = useParams();
-
   const [productDetails, setProductDetails] = useState({});
 
   const [loading, setLoading] = useState(false);
@@ -26,9 +30,12 @@ const ProductDetail = () => {
   useEffect(() => {
     getProductsDetails();
   }, []);
-  const { title, price, description, category, image } = productDetails;
+
+  const { title, price, description, category, image} = productDetails;
+
   //   console.log(productDetails)
   return (
+
     <>
       <Container className="details__container py-4">
         <div className=" details__card  d-flex ">
@@ -62,7 +69,7 @@ const ProductDetail = () => {
             )}
 
             <div className="mt-4 d-flex justify-content-between">
-              <Button className="add__cart p-2">Add to Cart</Button>
+              <Button className="add__cart p-2" onClick={()=> dispatch({type:'ADD', payload:productDetails})}>Add to Cart</Button>
               <Button className="add__cart p-2">
                 <Link to="/" style={{ color: "#fff", textDecoration: "none" }}>
                   {" "}

@@ -6,16 +6,41 @@ export const Context = (props) => {
 
   const reducer =(state, action)=>{
     switch (action.type) {
-      case 'ADD':
-        const tempState = state.filter((item)=> action.payload.id === item.id)
-        if(tempState.length > 0){
+      case "ADD":
+        const tempState = state.filter((item) => action.payload.id === item.id);
+        if (tempState.length > 0) {
           return state;
-        }else{
-         return [...state, action.payload];
+        } else {
+          return [...state, action.payload];
         }
 
-      default:return state
+      case "INCREMENT":
+        const increase = state.map((item) => {
+          if (item.id === action.payload.id) {
+            return { ...item, quantity: item.quantity + 1 };
+          } else {
+            return item;
+          }
+        });
+        return increase;
 
+      case "DECREMENT":
+        const decrease = state.map((item) => {
+          if (item.id === action.payload.id) {
+            return { ...item, quantity: item.quantity - 1 };
+          } else {
+            return item;
+          }
+        });
+        return decrease;
+
+      case "REMOVE":
+        const remove = state.filter((item) => item.id!== action.payload.id);
+
+        return remove
+
+      default:
+        return state;
     }
   }
     const [state, dispatch] = useReducer(reducer, []);

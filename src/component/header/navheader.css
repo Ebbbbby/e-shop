@@ -29,6 +29,8 @@
 }
 .cart__counter{
   background-color: #e3256b !important;
+  border: none;
+  outline: none;
 }
 
 .search__btn {
