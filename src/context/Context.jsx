@@ -1,9 +1,9 @@
+import { useState } from "react";
 import { createContext, useReducer } from "react";
 
 export const CartContext = createContext();
 
 export const Context = (props) => {
-
   const reducer =(state, action)=>{
     switch (action.type) {
       case "ADD":
@@ -36,14 +36,15 @@ export const Context = (props) => {
 
       case "REMOVE":
         const remove = state.filter((item) => item.id!== action.payload.id);
-
         return remove
+
 
       default:
         return state;
     }
   }
     const [state, dispatch] = useReducer(reducer, []);
+
    const contextValue = {state,dispatch};
   return (
     <CartContext.Provider value={contextValue}>

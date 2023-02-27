@@ -27,6 +27,10 @@ const Navheader = () => {
   const state = GlobalState.state;
   const dispatch = GlobalState.dispatch;
 
+  const handleChange = (e, {value})=>{
+    const searchText = value.trim().replace(/" "/g, "")
+    // searchProducts(searchText)(dispatch)
+  }
   const total = state.reduce((total , item)=>{
     return (total + item.price* item.quantity)
   }, 0)
@@ -50,8 +54,7 @@ const Navheader = () => {
                   placeholder="Search for Products,Brands and Categories"
                   className="input__form mx-3"
                   aria-label="Search"
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
+                  onChange={handleChange}
                 />
                 {/* <FaSearch className="icon" /> */}
               </div>
