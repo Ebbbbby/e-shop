@@ -28,6 +28,7 @@ const ProductDetail = () => {
     }
   };
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     getProductsDetails();
   }, []);
 

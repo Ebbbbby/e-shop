@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Col} from "react-bootstrap";
+import { Col } from "react-bootstrap";
 import Product from "./Product";
 import CustomPagination from "../Pagination/CustomPagination";
 
@@ -18,7 +18,6 @@ const Products = () => {
     getProducts();
   }, []);
 
-
   const getProducts = async () => {
     try {
       const response = await axios.get(product_url);
@@ -34,9 +33,10 @@ const Products = () => {
   //get current post
   const indexOfLastPost = currentPage * postPerPage;
   const indexOfFirstPost = indexOfLastPost - postPerPage;
+  console.log(products);
   const currentPost = products.slice(indexOfFirstPost, indexOfLastPost);
   //change page
-   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
   const prevPage = () => setCurrentPage(currentPage - 1);
   const nextPage = () => setCurrentPage(currentPage + 1);
 

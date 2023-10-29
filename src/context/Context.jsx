@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { createContext, useReducer } from "react";
 
 export const CartContext = createContext();

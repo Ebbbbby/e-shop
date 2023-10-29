@@ -23,6 +23,7 @@ const ProductCategory = () => {
         alert(error.message);
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     getProducts();
   }, []);
 
